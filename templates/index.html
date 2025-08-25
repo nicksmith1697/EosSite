@@ -242,6 +242,18 @@
             <h2>Ready to Transform Your Business?</h2>
             <p class="section-subtitle">Let's discuss how we can help you leverage the power of the cloud</p>
             
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="flash-messages">
+                        {% for category, message in messages %}
+                            <div class="flash-message flash-{{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+            
             <div class="contact-content">
                 <div class="contact-info">
                     <div class="contact-item">
@@ -267,14 +279,14 @@
                     </div>
                 </div>
                 
-                <form class="contact-form">
+                <form class="contact-form" action="/submit-contact" method="POST">
                     <div class="form-group">
-                        <input type="text" placeholder="Your Name" required>
-                        <input type="email" placeholder="Your Email" required>
+                        <input type="text" name="name" placeholder="Your Name" required>
+                        <input type="email" name="email" placeholder="Your Email" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" placeholder="Company" required>
-                        <select required>
+                        <input type="text" name="company" placeholder="Company" required>
+                        <select name="service" required>
                             <option value="">Service Interest</option>
                             <option value="aws">AWS Migration</option>
                             <option value="azure">Azure Solutions</option>
@@ -286,7 +298,7 @@
                             <option value="ai">AI Integration & Workflow Automation</option>
                         </select>
                     </div>
-                    <textarea placeholder="Tell us about your project" rows="5" required></textarea>
+                    <textarea name="message" placeholder="Tell us about your project" rows="5" required></textarea>
                     <button type="submit" class="btn btn-primary">Send Message</button>
                 </form>
             </div>
@@ -396,6 +408,24 @@
                 glowElement.style.left = x + 'px';
                 glowElement.style.top = y + 'px';
             });
+
+            // Contact form handling
+            const contactForm = document.querySelector('.contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    const submitButton = this.querySelector('button[type="submit"]');
+                    const originalText = submitButton.textContent;
+                    
+                    submitButton.textContent = 'Sending...';
+                    submitButton.disabled = true;
+                    
+                    // Re-enable button after 3 seconds (in case of redirect failure)
+                    setTimeout(() => {
+                        submitButton.textContent = originalText;
+                        submitButton.disabled = false;
+                    }, 3000);
+                });
+            }
         });
     </script>
 </body>

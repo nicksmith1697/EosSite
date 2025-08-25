@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "WebFetch(domain:eoscloudconsulting.com)",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Bash(pip install:*)"
     ],
     "deny": [],
     "ask": []
