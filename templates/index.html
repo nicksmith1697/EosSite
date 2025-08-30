@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eos Cloud Consulting - Transform Your Business with Cloud Solutions</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/EosDog.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -18,6 +19,7 @@
                 <a href="#home" class="nav-link">Home</a>
                 <a href="#services" class="nav-link">Services</a>
                 <a href="#about" class="nav-link">About</a>
+                <a href="/blog" class="nav-link">Blog</a>
                 <a href="#contact" class="nav-link">Contact</a>
             </div>
             <div class="nav-toggle">
@@ -357,11 +359,13 @@
             
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', function(e) {
-                    e.preventDefault();
                     const target = this.getAttribute('href');
-                    document.querySelector(target).scrollIntoView({
-                        behavior: 'smooth'
-                    });
+                    if (target.startsWith('#')) {
+                        e.preventDefault();
+                        document.querySelector(target).scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
                     navMenu.classList.remove('active');
                     navToggle.classList.remove('active');
                 });

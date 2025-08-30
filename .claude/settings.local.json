@@ -3,7 +3,8 @@
     "allow": [
       "WebFetch(domain:eoscloudconsulting.com)",
       "Bash(python:*)",
-      "Bash(pip install:*)"
+      "Bash(pip install:*)",
+      "Bash(curl:*)"
     ],
     "deny": [],
     "ask": []
