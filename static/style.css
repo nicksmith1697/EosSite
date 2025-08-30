@@ -1446,3 +1446,255 @@ html {
         margin: 0 6px 0 0;
     }
 }
+
+/* Enhanced Mobile Responsiveness for Small Screens */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 10px;
+    }
+    
+    .nav-container {
+        max-width: 100% !important;
+        padding: 0 10px;
+    }
+    
+    .nav-logo h2 {
+        font-size: 1.1rem;
+    }
+    
+    .hero {
+        padding: 7rem 0 3rem;
+    }
+    
+    .hero-content {
+        padding: 0 5px;
+    }
+    
+    .logo-img {
+        max-width: 140px;
+    }
+    
+    .hero-text h1 {
+        font-size: 2.2rem !important;
+        line-height: 1.1;
+        margin-bottom: 1rem;
+    }
+    
+    .hero-text p {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.8rem;
+    }
+    
+    .btn {
+        padding: 1rem 2.5rem !important;
+        font-size: 0.95rem !important;
+        width: 100%;
+        max-width: 280px;
+        text-align: center;
+        min-height: 44px;
+    }
+    
+    .services, .about, .contact {
+        padding: 3rem 0;
+    }
+    
+    .services h2, .about h2, .contact h2 {
+        font-size: 1.8rem;
+    }
+    
+    .section-subtitle {
+        font-size: 0.95rem;
+        margin-bottom: 2rem;
+    }
+    
+    .service-card {
+        padding: 1.8rem 1.2rem !important;
+        margin-bottom: 0.5rem;
+    }
+    
+    .service-card h3 {
+        font-size: 1.2rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .service-card p {
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+    
+    .service-card ul li {
+        font-size: 0.85rem;
+        padding: 0.3rem 0;
+    }
+    
+    .stats {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 1rem;
+    }
+    
+    .stat {
+        padding: 1rem;
+    }
+    
+    .stat h3 {
+        font-size: 1.5rem;
+    }
+    
+    .stat p {
+        font-size: 0.85rem;
+    }
+    
+    .about-features {
+        gap: 1rem;
+    }
+    
+    .feature {
+        padding: 1rem;
+        gap: 0.6rem;
+    }
+    
+    .feature i {
+        font-size: 1.5rem;
+    }
+    
+    .feature h4 {
+        font-size: 1rem;
+    }
+    
+    .feature p {
+        font-size: 0.85rem;
+    }
+    
+    .contact-info {
+        gap: 1.2rem;
+    }
+    
+    .contact-item i {
+        font-size: 1.3rem;
+    }
+    
+    .contact-item h4 {
+        font-size: 1rem;
+    }
+    
+    .contact-item p {
+        font-size: 0.9rem;
+    }
+    
+    .contact-form input,
+    .contact-form select,
+    .contact-form textarea {
+        padding: 0.9rem;
+        font-size: 16px; /* Prevents zoom on iOS */
+        min-height: 44px;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr !important;
+        text-align: center;
+        gap: 1.5rem;
+    }
+    
+    .footer-section h3,
+    .footer-section h4 {
+        margin-bottom: 0.8rem;
+    }
+    
+    .social-links {
+        justify-content: center;
+        gap: 1rem;
+    }
+    
+    .social-links a {
+        padding: 0.8rem;
+        font-size: 1.2rem;
+    }
+}
+
+/* Touch-friendly improvements for mobile devices */
+@media (hover: none) and (pointer: coarse) {
+    .btn:hover {
+        transform: none;
+    }
+    
+    .btn:active {
+        transform: scale(0.98);
+    }
+    
+    .nav-link {
+        padding: 1.2rem;
+        font-size: 1.1rem;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .service-card:hover {
+        transform: none;
+    }
+    
+    .service-card:active {
+        transform: scale(0.98);
+    }
+}
+
+/* Additional mobile blog improvements */
+@media (max-width: 480px) {
+    .blog-header h1 {
+        font-size: 2rem !important;
+    }
+    
+    .blog-grid {
+        grid-template-columns: 1fr !important;
+        gap: 15px;
+        margin-top: 30px;
+    }
+    
+    .blog-card {
+        margin-bottom: 1rem;
+    }
+    
+    .blog-card-content {
+        padding: 15px !important;
+    }
+    
+    .blog-card-title {
+        font-size: 1.2rem;
+        line-height: 1.3;
+    }
+    
+    .blog-card-preview {
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+    
+    .article-hero-image {
+        height: 200px !important;
+    }
+    
+    .article-meta h1 {
+        font-size: 1.6rem !important;
+        line-height: 1.2;
+    }
+    
+    .article-content {
+        padding: 20px !important;
+    }
+    
+    .article-text {
+        font-size: 0.95rem !important;
+        line-height: 1.6;
+    }
+    
+    .article-text p:first-child::first-letter {
+        font-size: 2.5rem !important;
+        margin: 0 4px 0 0;
+    }
+}

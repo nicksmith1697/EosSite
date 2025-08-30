@@ -1,0 +1,744 @@
+{
+  "name": "BlogMaker",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -944,
+        320
+      ],
+      "id": "27178134-cc7f-4b03-ae34-0c4b9b992714",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://www.cloudcomputing-news.net/feed/",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        -320,
+        -160
+      ],
+      "id": "34540a03-e6c4-4e64-8b54-bece8cb9bc48",
+      "name": "RSS Read"
+    },
+    {
+      "parameters": {
+        "url": "https://feeds.feedburner.com/cioreview/fvHK",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        -320,
+        32
+      ],
+      "id": "656d715d-5423-4480-8797-f8fc8a77481c",
+      "name": "RSS Read1"
+    },
+    {
+      "parameters": {
+        "url": "https://aws.amazon.com/blogs/aws/feed/",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        -320,
+        224
+      ],
+      "id": "e8071690-cbe5-4c9f-919e-2dd6245ad5d8",
+      "name": "RSS Read2"
+    },
+    {
+      "parameters": {
+        "url": "https://blogs.vmware.com/cloudprovider/feed",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        -320,
+        416
+      ],
+      "id": "7446c23a-4483-4029-a3de-b8b1534e4c5d",
+      "name": "RSS Read3"
+    },
+    {
+      "parameters": {
+        "url": "https://community.hpe.com/hpeb/rss/board?board.id=TransformingIT",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        -320,
+        608
+      ],
+      "id": "54aab057-83b0-4a5d-9a6b-adec20065035",
+      "name": "RSS Read4"
+    },
+    {
+      "parameters": {
+        "url": "https://cloudblog.withgoogle.com/rss/",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        -320,
+        800
+      ],
+      "id": "30b26611-310e-438a-aebd-eaa2ea87ffd5",
+      "name": "RSS Read5"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=# Weekly Tech Trends Blog Generation Prompt\n\nYou are a seasoned IT industry analyst who reads everything and has a knack for spotting what really matters. You've just finished your weekly deep-dive through the major cloud and enterprise tech publications.\n\n## Your Task:\nAnalyze the provided RSS feed content from this week and write a 400-600 word blog post about the most significant trend or development you've identified.\n\n## RSS Sources You're Analyzing:\n- Cloud Computing News\n- CIO Review  \n- AWS Blog\n- VMware Cloud Provider Blog\n- HPE Community (Transforming IT)\n- Google Cloud Blog\n\n## Writing Style Requirements:\n- Write like you're having a coffee chat with a fellow IT professional\n- Use your own voice - include personal observations like \"I've been seeing this pattern...\" or \"What caught my eye this week...\"\n- Be conversational but insightful\n- Include specific examples from the feeds, but weave them naturally into your narrative\n- Show, don't just tell - if something is \"game-changing,\" explain why in practical terms\n- Use varied sentence lengths and occasional industry jargon (but explain complex concepts)\n- Include a contrarian take or balanced perspective when appropriate\n\n## Content Structure:\n1. **Hook** - Start with an observation or question that draws readers in\n2. **The Trend** - What's the big story this week? Connect the dots between different sources\n3. **Why It Matters** - Real-world implications for businesses, IT teams, or the industry\n4. **Personal Take** - Your analysis of what this means going forward\n5. **Closing Thought** - Leave readers with something to think about\n\n## What to Avoid:\n- Don't list sources formally - weave them into your narrative naturally\n- Avoid obvious AI phrases like \"In conclusion,\" \"It's worth noting,\" \"Furthermore\"\n- Don't use bullet points or numbered lists in the main content\n- Skip generic statements - be specific and opinionated\n- Don't write like a press release - this is analysis, not announcement\n\n## Additional Instructions:\n- If multiple trends appear, pick the ONE most significant and focus deeply on it\n- Include at least one specific company, product, or announcement mentioned in the feeds\n- Consider both technical and business implications\n- End with a forward-looking statement that isn't just \"time will tell\"\n\nRemember: You're not summarizing the news - you're interpreting it. What story are these headlines really telling when you connect them together?\n\n\n{{ $json.rssData }}",
+        "batching": {
+          "batchSize": 5
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        896,
+        336
+      ],
+      "id": "6069dd5c-f11e-47b9-93ed-342a5dfbf97c",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        880,
+        528
+      ],
+      "id": "6c3e43d4-83df-472a-91f4-87db31504b4a",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "PiXJUeNVM6nu4FKT",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "numberInputs": 6
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        480,
+        272
+      ],
+      "id": "5a8254fa-6475-4252-b3ae-7a50f23a85ba",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "maxItems": 3
+      },
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        -160
+      ],
+      "id": "108d3f3d-6e46-43d5-931e-dd93c75cf31d",
+      "name": "Limit",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "maxItems": 3
+      },
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        32
+      ],
+      "id": "9a73026f-0b5e-44e6-911d-6efcd0ac79a0",
+      "name": "Limit1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "maxItems": 3
+      },
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        224
+      ],
+      "id": "9caa8230-b293-4515-a0eb-079112a2578e",
+      "name": "Limit2",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "maxItems": 3
+      },
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        416
+      ],
+      "id": "dd17f84b-ef5b-4aec-a3fe-1e82618a2354",
+      "name": "Limit3",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "maxItems": 3
+      },
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        608
+      ],
+      "id": "e83524d9-fea9-43e3-94d3-36b086ceee08",
+      "name": "Limit4",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "maxItems": 3
+      },
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        800
+      ],
+      "id": "b5496509-cccb-4f74-9d3d-85b786076c77",
+      "name": "Limit5",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// RSS Data Processor for n8n Code Node\n// Place this BEFORE your AI node to process the merged RSS data\n\n// Get the merged RSS data from the previous node\nconst items = $input.all();\n\n// Configuration\nconst MAX_ARTICLES_PER_SOURCE = 8; // Limit articles per RSS source\nconst MAX_DESCRIPTION_LENGTH = 200; // Truncate long descriptions\nconst DAYS_BACK = 7; // Only include articles from last 7 days\nconst MAX_TOTAL_ARTICLES = 40; // Hard limit on total articles\n\n// Helper function to extract domain from URL for source identification\nfunction extractSource(url) {\n  const sourceMap = {\n    'cloudcomputing-news.net': 'Cloud Computing News',\n    'cioreview': 'CIO Review',\n    'aws.amazon.com': 'AWS Blog',\n    'vmware.com': 'VMware Blog',\n    'hpe.com': 'HPE Community',\n    'withgoogle.com': 'Google Cloud Blog'\n  };\n  \n  for (const [domain, name] of Object.entries(sourceMap)) {\n    if (url.includes(domain)) return name;\n  }\n  return 'Tech News';\n}\n\n// Helper function to check if article is recent\nfunction isRecent(dateString, daysBack = DAYS_BACK) {\n  if (!dateString) return true; // Include if no date\n  const articleDate = new Date(dateString);\n  const cutoffDate = new Date();\n  cutoffDate.setDate(cutoffDate.getDate() - daysBack);\n  return articleDate >= cutoffDate;\n}\n\n// Helper function to clean and truncate text\nfunction cleanText(text, maxLength = MAX_DESCRIPTION_LENGTH) {\n  if (!text) return '';\n  return text\n    .replace(/<[^>]*>/g, '') // Remove HTML tags\n    .replace(/\\s+/g, ' ') // Normalize whitespace\n    .trim()\n    .substring(0, maxLength) + (text.length > maxLength ? '...' : '');\n}\n\n// Helper function to detect potential duplicates\nfunction isDuplicate(article, existingArticles) {\n  const title = article.title.toLowerCase();\n  return existingArticles.some(existing => {\n    const existingTitle = existing.title.toLowerCase();\n    // Check for very similar titles (simple word overlap check)\n    const words1 = title.split(' ').filter(w => w.length > 3);\n    const words2 = existingTitle.split(' ').filter(w => w.length > 3);\n    const overlap = words1.filter(w => words2.includes(w)).length;\n    return overlap > Math.min(words1.length, words2.length) * 0.6;\n  });\n}\n\n// Process and organize articles\nlet processedArticles = [];\nlet articlesBySource = {};\n\n// First pass: organize by source and filter by date\nitems.forEach(item => {\n  const json = item.json;\n  \n  // Skip if no title or if not recent\n  if (!json.title || !isRecent(json.pubDate || json.date)) {\n    return;\n  }\n  \n  const source = extractSource(json.link || json.url || '');\n  \n  if (!articlesBySource[source]) {\n    articlesBySource[source] = [];\n  }\n  \n  articlesBySource[source].push({\n    title: json.title,\n    description: cleanText(json.description || json.summary || json.content),\n    link: json.link || json.url,\n    pubDate: json.pubDate || json.date,\n    source: source\n  });\n});\n\n// Second pass: limit articles per source and remove duplicates\nObject.keys(articlesBySource).forEach(source => {\n  // Sort by date (newest first)\n  articlesBySource[source].sort((a, b) => {\n    const dateA = new Date(a.pubDate || 0);\n    const dateB = new Date(b.pubDate || 0);\n    return dateB - dateA;\n  });\n  \n  // Take top articles per source, avoiding duplicates\n  const sourceArticles = [];\n  for (const article of articlesBySource[source]) {\n    if (sourceArticles.length >= MAX_ARTICLES_PER_SOURCE) break;\n    if (!isDuplicate(article, sourceArticles)) {\n      sourceArticles.push(article);\n    }\n  }\n  \n  processedArticles.push(...sourceArticles);\n});\n\n// Final filtering: limit total articles and prioritize by recency/source diversity\nprocessedArticles = processedArticles\n  .sort((a, b) => new Date(b.pubDate || 0) - new Date(a.pubDate || 0))\n  .slice(0, MAX_TOTAL_ARTICLES);\n\n// Format for AI consumption\nconst formattedContent = Object.entries(\n  processedArticles.reduce((acc, article) => {\n    if (!acc[article.source]) acc[article.source] = [];\n    acc[article.source].push(article);\n    return acc;\n  }, {})\n).map(([source, articles]) => {\n  const articleList = articles.map(article => \n    `\"${article.title}\" - ${article.description}`\n  ).join('\\n');\n  \n  return `## ${source}\\n${articleList}`;\n}).join('\\n\\n');\n\n// Create the formatted data for AI consumption\nconst aiInput = `Here are this week's key articles from major cloud and enterprise tech sources:\n\n${formattedContent}`;\n\n// Output for the AI node\nreturn [{\n  json: {\n    rssData: aiInput,\n    articleCount: processedArticles.length,\n    sourceCount: Object.keys(articlesBySource).length,\n    metadata: {\n      totalProcessed: items.length,\n      finalCount: processedArticles.length,\n      sources: Object.keys(articlesBySource)\n    }\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        704,
+        336
+      ],
+      "id": "bbde3f46-716c-4094-b894-69304b5b07e0",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=# LinkedIn Post Transformation Prompt\n\nYou're a seasoned cloud architect with 15+ years in enterprise tech who's built a strong LinkedIn following by sharing authentic insights from the trenches. You speak from experience, not textbooks.\n\n## CRITICAL: Output Format\nYour response should ONLY contain the final LinkedIn post content - ready to copy and paste directly. Do NOT include any commentary about the transformation process, meta-discussion, or references to \"drafts\" or \"refining.\" Just write the post.\n\n## Your Mission:\nTransform this research into a LinkedIn post that sounds like it came from someone who's actually lived through three cloud migrations, survived a few vendor pivots, and has the battle scars to prove it.\n\n## Make It Authentically Human:\n\n**Personal Voice Elements:**\n- Start with a relatable moment: \"Yesterday I was talking to...\" or \"Anyone else notice...\"\n- Include mild contradictions or second thoughts: \"Actually, let me rephrase that...\"\n- Use industry slang and abbreviations naturally: \"K8s,\" \"infra,\" \"DevOps folks\"\n- Add slight imperfections: incomplete thoughts, casual asides in parentheses\n- Reference specific experiences: \"Back when I was at [generic company type]...\"\n\n**LinkedIn-Specific Tone:**\n- Professional but conversational (coffee chat with a peer)\n- Include a \"controversial\" or contrarian take that sparks discussion\n- Ask a genuine question at the end to drive engagement\n- Use natural paragraph breaks (some single sentences)\n- Include relevant hashtags that feel organic\n\n**Remove All AI-isms:**\n- No \"Furthermore,\" \"Moreover,\" \"In conclusion\"\n- No perfectly balanced three-point structures\n- No academic-sounding transitions\n- Ditch formal business speak for how people actually talk\n- Replace \"organizations\" with \"companies\" or \"teams\"\n\n**Content Style:**\n- 400-600 words max (LinkedIn attention spans)\n- Mix of short punchy sentences and longer explanatory ones\n- Include a personal anecdote or observation\n- Reference specific companies/products naturally\n- End with a question that invites debate\n\n**Authenticity Markers:**\n- Use contractions naturally (I'm, we're, it's)\n- Include industry humor or mild cynicism\n- Reference common frustrations/challenges\n- Show opinions, not just facts\n- Admit uncertainty: \"I could be wrong, but...\" or \"Time will tell if...\"\n\n## Structure:\n- **Hook:** Personal observation or question\n- **Context:** Why this caught your attention\n- **Insight:** What you think is really happening\n- **Impact:** What this means for your network\n- **Engagement:** Question for the comments\n\nWrite like someone who's actually worked in enterprise tech, not someone who just read about it.\n\n---\n\n**SOURCE CONTENT TO TRANSFORM:**\n{{ $json.text }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1,
+      "position": [
+        1248,
+        336
+      ],
+      "id": "951da10e-af77-42df-b88e-6899cfbb1c49",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1248,
+        544
+      ],
+      "id": "ab6bf76d-3cda-4e7f-91ef-65240579ccec",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "F6gY1NeJracnOJrM",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.0-flash-preview-image-generation",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.0-flash-preview-image-generation"
+        },
+        "prompt": "=Generate an thumbnail based off of this input\n\n {{ $json.output }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        1584,
+        336
+      ],
+      "id": "37af1d2b-6c4d-4b38-a802-631f3f3abb0f",
+      "name": "Generate an image",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "F6gY1NeJracnOJrM",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "=/data/blog_posts/thumbnail({{$today.format('yyyy-MM-dd')}}).png",
+        "options": {
+          "append": false
+        }
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        1872,
+        160
+      ],
+      "id": "cdb54808-f5dc-46ce-96e2-0fcc13c40b4e",
+      "name": "Read/Write Files from Disk"
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "=/data//blog_posts/Blog_Article({{$today.format('yyyy-MM-dd')}}).txt",
+        "dataPropertyName": "article",
+        "options": {
+          "append": false
+        }
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        2144,
+        560
+      ],
+      "id": "656fd217-b35d-4111-85c7-284e102bd1f3",
+      "name": "Read/Write Files from Disk1"
+    },
+    {
+      "parameters": {
+        "operation": "toText",
+        "sourceProperty": "output",
+        "binaryPropertyName": "article",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        1808,
+        560
+      ],
+      "id": "6a4c5bbf-8c31-4cf1-b2de-90a77e321ff8",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=# LinkedIn Headline Generator Prompt\n\nYou're a social media strategist who specializes in tech content that actually gets engagement. Your job is to create headlines that make people stop scrolling and click.\n\n## Your Task:\nCreate 3 headline options based on this LinkedIn post content. Each should be optimized for LinkedIn's algorithm and human psychology.\n\n## LinkedIn Headline Best Practices:\n\n**Length:** 60-100 characters (shows fully in feed)\n\n**Hook Elements:**\n- Start with \"Why,\" \"How,\" \"The,\" or a contrarian statement\n- Include numbers when relevant (3 reasons, 5 trends, etc.)\n- Reference pain points or common frustrations\n- Use industry terms that resonate with your audience\n\n**Engagement Triggers:**\n- Controversy or contrarian takes (\"Why X is actually...\")\n- Personal stakes (\"I was wrong about...\")\n- Insider knowledge (\"What vendors don't tell you about...\")\n- Pattern recognition (\"The trend everyone's missing...\")\n- Practical value (\"Stop doing X, start doing Y\")\n\n**Voice & Tone:**\n- Conversational, not corporate\n- Confident but not arrogant\n- Industry-insider perspective\n- Avoid buzzwords unless they add real value\n\n**Examples of What Works:**\n✅ \"Why 'observability' became the new buzzword everyone misunderstands\"\n✅ \"I spent $2M on cloud migrations. Here's what actually broke.\"\n✅ \"The dirty secret about multi-cloud that vendors won't mention\"\n\n**Avoid:**\n❌ Generic phrases like \"Exciting developments\" or \"Industry insights\"\n❌ All caps or excessive punctuation\n❌ Overly salesy language\n❌ Buzzword soup without substance\n\n## Output Format:\nProvide only ONE headline - no commentary, no options, just the final headline ready to use.\n\n---\n\n**CONTENT TO ANALYZE:**\n{{ $json.output }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1,
+      "position": [
+        1568,
+        752
+      ],
+      "id": "bcc50895-a635-4808-a96d-77abd30b774b",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "operation": "toText",
+        "sourceProperty": "output",
+        "binaryPropertyName": "article",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        1920,
+        752
+      ],
+      "id": "b887c02e-b72a-4588-a207-71372cbc1bda",
+      "name": "Convert to File1"
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "=/data//blog_posts/Blog_Article_Title({{$today.format('yyyy-MM-dd')}}).txt",
+        "dataPropertyName": "article",
+        "options": {
+          "append": false
+        }
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        2128,
+        752
+      ],
+      "id": "27d95d76-07d4-44d3-ab9e-70fdf6a13239",
+      "name": "Read/Write Files from Disk2"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1520,
+        912
+      ],
+      "id": "81d6b642-df10-4314-9283-8ae1eaa5f23e",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "F6gY1NeJracnOJrM",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "RSS Read",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "RSS Read1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "RSS Read2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "RSS Read3",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "RSS Read4",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "RSS Read5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS Read": {
+      "main": [
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS Read1": {
+      "main": [
+        [
+          {
+            "node": "Limit1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS Read2": {
+      "main": [
+        [
+          {
+            "node": "Limit2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS Read3": {
+      "main": [
+        [
+          {
+            "node": "Limit3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS Read4": {
+      "main": [
+        [
+          {
+            "node": "Limit4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS Read5": {
+      "main": [
+        [
+          {
+            "node": "Limit5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit5": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 5
+          }
+        ]
+      ]
+    },
+    "Limit4": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 4
+          }
+        ]
+      ]
+    },
+    "Limit3": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "Limit2": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Limit1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Generate an image",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate an image": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read/Write Files from Disk1": {
+      "main": [
+        []
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "Convert to File1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File1": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "ad6e585d-179c-47fe-aa08-0a2d60b7d101",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "fad35cec93b0d541b9bbef6efbf9e16c999ee413e3656b154933f3cde25c331e"
+  },
+  "id": "mROMzvudjh91NNOi",
+  "tags": []
+}
